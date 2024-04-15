@@ -2,3 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+.body {
+    width: 90%;
+    height: 75%;
+    /* max-height: 400px; */
+    padding: 20px;
+
+    /* como centralizar um elemento: https://www.youtube.com/watch?v=Cu-HP-gvggg&t=102s&ab_channel=MarioSouto-DevSoutinho */
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 5%;
+    justify-content: center;
+    align-items: center;
+}
