@@ -1,5 +1,7 @@
 import Form from '@/components/Form'
 
+// Customizar scroll bar
+
 export default function Event(){
     return (
         <div className="bg-gray-800 min-h-screen">
