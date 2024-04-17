@@ -7,7 +7,7 @@ export default function Home(){
                 <div className="w-[25vw] h-[25vw] bg-white text-9xl flex justify-center items-center rounded-2xl shadow-2xl">
                     <span>T²</span>
                 </div>
-                <Link href={"/event"}>
+                <Link href={"/event/create"}>
                     <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded inline-flex items-center">
                         <span>Criar evento</span>
                     </button>

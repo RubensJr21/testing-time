@@ -3,6 +3,7 @@ import Form from '@/components/Form'
 // Customizar scroll bar
 
 export default function Event(){
+    // Redirect para encaminhar para o create
     return (
         <div className="bg-gray-800 min-h-screen">
             <div className="bg-zinc-800 body rounded-2xl shadow-xl">

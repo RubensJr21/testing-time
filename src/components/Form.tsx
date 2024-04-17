@@ -1,8 +1,20 @@
 import { BaseSyntheticEvent, useState } from 'react';
 
+const _seconds = 1000
+const _minutes = 60 * _seconds
+
+const seconds = (time: number) => time * _seconds
+const minutes = (time: number) => time * _minutes
+
+const getStartTime = (delay_time: number) => {
+    var d = new Date()
+    if (typeof delay_time == "number" ) { d = new Date(d.getTime() + delay_time) }
+    return d.toLocaleTimeString().slice(0,5)
+}
+
 const DynamicForm = () => {
-    var hora = (new Date()).toLocaleTimeString().slice(0,5)
-    const [formFields, setFormFields] = useState([{ inputText: 'Hora de início do teste', time: hora, enabled: false}]);
+    var hora = getStartTime(minutes(30))
+    const [formFields, setFormFields] = useState([{ inputText: '', time: hora, enabled: false}]);
 
     const addFormField = () => {
         setFormFields([...formFields, { inputText: '', time: '', enabled: true}]);
