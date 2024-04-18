@@ -77,23 +77,37 @@ export default function Event(){
                         type="button"
                         onClick={(e) => {
                             
-                            var h_start, m_start : number;
-                            var h_finish, m_finish: number;
+                            function timeToMinutes(timeStr: String) {
+                                const [hours, minutes] = timeStr.split(':').map(Number);
+                                return hours * 60 + minutes;
+                            }
+                              
+                            function timeDifference(startTimeStr: String, endTimeStr: String) {
+                                const startTimeMinutes = timeToMinutes(startTimeStr);
+                                const endTimeMinutes = timeToMinutes(endTimeStr);
                             
-                            h_start = Number(start_time.slice(0,2))
-                            m_start = Number(start_time.slice(3,5))
-                            h_finish = Number(end_time.slice(0,2))
-                            m_finish = Number(end_time.slice(3,5))
+                                // Calcula a diferença em minutos
+                                let differenceInMinutes = endTimeMinutes - startTimeMinutes;
+                            
+                                // Se a diferença for negativa, ajusta para representar uma diferença de um dia
+                                if (differenceInMinutes < 0) {
+                                    differenceInMinutes += 24 * 60; // 24 horas em minutos
+                                }
+                            
+                                return differenceInMinutes;
+                            }
 
-                            var start = new Date();
-                            var finish = new Date();
-                            var start_numb = start.setHours(h_start, m_start);
-                            var finish_numb = finish.setHours(h_finish, m_finish);
+                            function minutesToTime(minutes : number) {
+                                const hours = Math.floor(minutes / 60);
+                                const remainingMinutes = minutes % 60;
+                                const formattedHours = String(hours).padStart(2, '0');
+                                const formattedMinutes = String(remainingMinutes).padStart(2, '0');
+                                return `${formattedHours}:${formattedMinutes}`;
+                            }
+                              
 
-                            var duration = finish_numb - start_numb
-
-                            var d  = new Date(duration)//.toLocaleTimeString().slice(0,5)
-                            const string = `Hora de início: ${start_time} | Hora de término: ${end_time}\nDuração: ${d}\nstart_numb: ${start_numb}\nfinish_numb: ${finish_numb}`
+                            var d = minutesToTime(timeDifference(start_time, end_time))
+                            const string = `Hora de início: ${start_time} | Hora de término: ${end_time}\nDuração: ${d}`
                             alert(string)
                         }}
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full col-span-1"
