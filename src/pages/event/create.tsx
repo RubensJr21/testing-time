@@ -6,7 +6,7 @@
 // Customizar scroll bar
 import { useEffect, useState } from "react";
 
-import Form from "@/components/Form";
+import Form, { FormFildState } from "@/components/Form";
 import { getTime, hours, minutes, minutesToTime, timeDifference, } from '@/lib/time';
 
 export default function Event(){
@@ -109,8 +109,38 @@ export default function Event(){
                                 setDuration("")
                             }}
                             nextFunction={(e, messages) => {
-                                console.log(e)
-                                console.log(messages)
+                                // verificações
+                                /*
+                                    1. Usuário não pode enviar mensagem vazia
+                                        1.1 Perguntar se deseja ignorar vazios todos os vázios
+                                    2. O intervalo válido das mensagens maior que 00:00 e menor que tempo de duração de prova
+                                */
+                                
+                                const sendToBack = (messages_validaties: FormFildState[]) => {
+                                    console.log("Criando evento...")
+                                        // Criar objeto do evento
+                                        const event = {
+                                            name: nome,
+                                            start_time,
+                                            end_time,
+                                            messages: messages_validaties
+                                        }
+                                        console.log("Enviar informações para o back-end")
+                                        console.log(event)
+                                }
+
+                                const messages_validaties = messages.filter((value) => value.message.length > 0)
+                                if(messages_validaties.length == 0){
+                                    alert("Pelo menos uma das mensagens precisa estar preenchida!")
+                                } else if(messages.length > messages_validaties.length){
+                                    if(confirm("Algumas mensagens estão em brnaco.\nEssas mensagens serão ignoradas! Deseja Continuar?") == true){
+                                        sendToBack(messages_validaties)
+                                    } else {
+                                        console.log("Voltar para edição")
+                                    }
+                                } else { // Se chegar aqui quer dizer que messages e messages_validaties são do mesmo tamanho
+                                    sendToBack(messages_validaties)
+                                }
                             }}
                             duration={duration}
                         />

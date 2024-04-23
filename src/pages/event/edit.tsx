@@ -1,4 +1,3 @@
-import Form from '@/components/Form'
 
 // Customizar scroll bar
 
@@ -21,7 +20,7 @@ export default function Event(){
                     <span>T²</span>
                 </div>
             </div>
-            <Form />
+            {/* <Form /> */}
             </div>
         </div>
     )

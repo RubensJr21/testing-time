@@ -3,7 +3,7 @@ import Link from 'next/link'
 export default function Home(){
     return (
         <div className="bg-gray-800 min-h-screen">
-            <div className="bg-zinc-800 body rounded-2xl shadow-xl">
+            <div className="bg-zinc-800 absolute top-0 bottom-0 left-0 right-0 m-auto w-[90%] h-[75%] rounded-2xl shadow-xl flex flex-col gap-y-[5%] justify-between items-center p-[4.5%]">
                 <div className="w-[25vw] h-[25vw] bg-white text-9xl flex justify-center items-center rounded-2xl shadow-2xl">
                     <span>T²</span>
                 </div>

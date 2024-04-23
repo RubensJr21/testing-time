@@ -1,6 +1,7 @@
-const _seconds = 1000
-const _minutes = 60 * _seconds
-const _hours = 60 * _minutes
+const _milliseconds = 1
+export const _seconds = 1000 * _milliseconds
+export const _minutes = 60 * _seconds
+export const _hours = 60 * _minutes
 
 export const seconds = (time: number) => time * _seconds
 export const minutes = (time: number) => time * _minutes
