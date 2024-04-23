@@ -10,8 +10,8 @@ export default function Event(){
         <div className="bg-gray-800 min-h-screen">
             <div className="bg-zinc-800 body rounded-2xl shadow-xl">
             <div className='w-full'>
-                <h1 className="text-[2.85rem] text-center font-extrabold dark:text-white">{"{Nome do evento}"}</h1>
-                <div className='flex flex-col items-center justify-center flex-wrap dark:text-white'>
+                <h1 className="text-[2.85rem] text-center font-extrabold text-white">{"{Nome do evento}"}</h1>
+                <div className='flex flex-col items-center justify-center flex-wrap text-white'>
                     <span>Hora de início: {"{hora_início}"} | Hora de fim: {"{hora_fim}"}</span>
                     <span>duração: {"{duração}"}</span>
                 </div>

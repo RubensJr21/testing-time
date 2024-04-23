@@ -6,10 +6,14 @@ export const seconds = (time: number) => time * _seconds
 export const minutes = (time: number) => time * _minutes
 export const hours = (time: number) => time * _hours
 
+export const getStringHour = (d: Date) => {
+    return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
+}
+
 export const getTime = (delay_time?: number, date?: Date) => {
     var d = (!date) ? new Date() : date
     if (typeof delay_time == "number" ) { d = new Date(d.getTime() + delay_time) }
-    return d.toLocaleTimeString().slice(0,5)
+    return getStringHour(d)
 }
 
 export function timeToMinutes(timeStr: String) {
