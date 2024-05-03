@@ -1,7 +1,7 @@
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes#example
 
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import io from 'socket.io-client';
 
@@ -23,10 +23,19 @@ export default function EventID(){
 
         socket = io();
 
+        socket.on('connect', () => {
+            console.log('client::connected')
+        })
+        
         socket.emit('subscribeToEventUpdates', event_id);
         
-        socket.emit('sendMessageToEvent', {eventId: event_id, message: "hello"})
+        socket.emit('sendMessageToEvent', {event_id, message: "hello"})
     }
+
+    const encerrar_evento = useCallback(() => {
+        const senha : string = prompt("Digite a senha para encerrar o evento:") ?? ""
+        console.log(senha)
+    },[])
 
     return (
         <div className="bg-gray-800 min-h-screen">
@@ -51,9 +60,7 @@ export default function EventID(){
                         </div>
                         <button
                             type="button"
-                            onClick={(e) => {
-                                prompt("Digite a senha para encerrar o evento:")
-                            }}
+                            onClick={encerrar_evento}
                             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
                         >
                             Encerrar evento

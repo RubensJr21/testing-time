@@ -21,7 +21,6 @@ interface NextApiResponseWithSocket extends NextApiResponse {
 export default function Event(req: NextApiRequest, res: NextApiResponseWithSocket) {
 
     const { method } = req
-    req.query
 
     // if(method !== "GET"){
     //     return res.status(404).json({
@@ -36,27 +35,33 @@ export default function Event(req: NextApiRequest, res: NextApiResponseWithSocke
     // recuper o socket daquele evento
     // encaminhar o socket
 
-    const io = new Server(res.socket.server)
-    res.socket.server.io = io
-        
-    io.on("connection", (socket: Socket) => {
-        console.log('Novo cliente conectado', socket.id);
-        socket.on('subscribeToEventUpdates', (eventId) => {
-            socket.join(`event-${eventId}`);
-            console.log(`Cliente ${socket.id} inscrito para atualizações do evento ${eventId}`);
-        });
-        // Exemplo de publicação de uma mensagem para um canal específico
-        socket.on('sendMessageToEvent', ({ event_id, message }) => {
-            io.to(`event-${event_id}`).emit('eventMessage', message);
-            console.log("Mensagem recebida")
-        });
+    if (res.socket.server.io) {
+        console.log('api::Socket is already running')
+    } else {
+        console.log('api::Socket is initializing')
+        const io = new Server(res.socket.server)
+        res.socket.server.io = io
 
-        // Evento de desconexão (quando um cliente se desconecta)
-        socket.on('disconnect', () => {
-            console.log('Cliente desconectado');
-        });
-    })
-
+        io.on("connection", (socket: Socket) => {
+            console.log('api::Novo cliente conectado', socket.id);
+            socket.on('subscribeToEventUpdates', (eventId) => {
+                // Verifica se o evento existe
+                socket.join(`event-${eventId}`);
+                console.log(`api::Cliente ${socket.id} inscrito para atualizações do evento ${eventId}`);
+            });
+            // Exemplo de publicação de uma mensagem para um canal específico
+            socket.on('sendMessageToEvent', ({ event_id, message }) => {
+                io.to(`event-${event_id}`).emit('eventMessage', message);
+                console.log("api::Mensagem recebida")
+            });
+    
+            // Evento de desconexão (quando um cliente se desconecta)
+            socket.on('disconnect', () => {
+                console.log('api::Cliente desconectado');
+            });
+        })
+    }
+    
     res.end()
 
     // return res.status(200).json({
